@@ -3,18 +3,18 @@ pipeline {
   agent any
   
   environment {
-    FLAG == "true"
+    NEW_VERSION == "1.2.0"
  }
  
   stages {
     stage ("Build") {
         when {
           expression {
-            echo "Flag value is: ${FLAG}"
-            ${FLAG} == "true" && CODE_CHANGES == true
+            CODE_CHANGES == true
       }
      }
       steps {
+       echo "NEW_VERSION value is: ${NEW_VERSION}"
         echo "Building the application"
       }
     }
