@@ -1,3 +1,5 @@
+def gv
+
 pipeline {
  
   agent any
@@ -19,6 +21,14 @@ pipeline {
     }
    }
    
+   stage ("Initialize") {
+    steps {
+     script {
+      gv = load "script.groovy"
+     }
+    }
+   }
+   
     stage ("Build") {
         when {
           expression {
@@ -26,8 +36,9 @@ pipeline {
       }
      }
       steps {
-        echo "Building the application"
-       echo "Author = ${params.author}"
+       script {
+        gv.buildApp()
+       }
       }
     }
     stage ("Test") {
@@ -37,15 +48,16 @@ pipeline {
       }
      }
       steps {
-        echo "Testing the application"
+        script {
+        gv.testApp()
+       }
       }
     }
     stage ("Deploy") {
       steps {
-       echo "Setup: ${params.Setup}"
-       echo "Deploying the application"
-       echo "BUILD_ID = ${env.BUILD_ID}"
-       echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
+       script {
+        gv.deployApp() 
+       }
       }
     }
   }
