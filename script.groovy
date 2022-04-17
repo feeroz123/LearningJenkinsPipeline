@@ -1,5 +1,5 @@
 def buildApp() {
-  echo "Building the application"
+  echo "Building the application: Grovy script"
   echo "Author = ${params.author}"
 }
 
@@ -9,7 +9,7 @@ def testApp() {
 
 def deployApp() {
   echo "Setup: ${params.Setup}"
-  echo "Deploying the application"
+  echo "Deploying the application: Groovy script"
   echo "BUILD_ID = ${env.BUILD_ID}"
   echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
 }
