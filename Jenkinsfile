@@ -2,7 +2,19 @@ pipeline {
  
   agent any
  
+ environment {
+   MY_VARIABLE = "TEST"
+ }
+ 
   stages {
+   stage ("Print variables") {
+    steps {
+     echo "CODE_CHANGES = ${CODE_CHANGES}"
+     echo "BRANCH_NAME = ${BRANCH_NAME}"
+     echo "MY_VARIABLE = ${MY_VARIABLE}"
+    }
+   }
+   
     stage ("Build") {
         when {
           expression {
@@ -14,6 +26,7 @@ pipeline {
       }
     }
     stage ("Test") {
+     
      when {
       expression {
         env.BRANCH_NAME == 'main'
