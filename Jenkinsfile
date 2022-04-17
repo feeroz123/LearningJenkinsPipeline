@@ -9,8 +9,8 @@ pipeline {
   stages {
    stage ("Print variables") {
     steps {
-     echo "CODE_CHANGES = ${env.CODE_CHANGES}"
-     echo "BRANCH_NAME = ${env.BRANCH_NAME}"
+     echo "BUILD_ID = ${env.BUILD_ID}"
+     echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
      echo "MY_VARIABLE = ${env.MY_VARIABLE}"
     }
    }
@@ -18,7 +18,7 @@ pipeline {
     stage ("Build") {
         when {
           expression {
-            env.CODE_CHANGES == true
+            env.MY_VARIABLE == "TEST"
       }
      }
       steps {
@@ -26,12 +26,6 @@ pipeline {
       }
     }
     stage ("Test") {
-     
-     when {
-      expression {
-        env.BRANCH_NAME == 'main'
-      }
-     }
       steps {
         echo "Testing the application"
       }
