@@ -11,7 +11,7 @@ pipeline {
     steps {
      echo "CODE_CHANGES = ${env.CODE_CHANGES}"
      echo "BRANCH_NAME = ${env.BRANCH_NAME}"
-     echo "MY_VARIABLE = ${MY_VARIABLE}"
+     echo "MY_VARIABLE = ${env.MY_VARIABLE}"
     }
    }
    
