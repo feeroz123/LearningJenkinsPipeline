@@ -9,8 +9,8 @@ pipeline {
   stages {
    stage ("Print variables") {
     steps {
-     echo "CODE_CHANGES = ${CODE_CHANGES}"
-     echo "BRANCH_NAME = ${BRANCH_NAME}"
+     echo "CODE_CHANGES = ${env.CODE_CHANGES}"
+     echo "BRANCH_NAME = ${env.BRANCH_NAME}"
      echo "MY_VARIABLE = ${MY_VARIABLE}"
     }
    }
