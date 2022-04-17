@@ -3,7 +3,7 @@ pipeline {
   agent any
   
   environment {
-    FLAG == true
+    FLAG == "true"
  }
  
   stages {
@@ -11,7 +11,7 @@ pipeline {
         when {
           expression {
             echo "Flag value is: ${FLAG}"
-            ${FLAG} == true && CODE_CHANGES == true
+            ${FLAG} == "true" && CODE_CHANGES == true
       }
      }
       steps {
