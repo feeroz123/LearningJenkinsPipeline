@@ -6,9 +6,10 @@ pipeline {
    MY_VARIABLE = "TEST"
  }
  
- paramters {
+ parameters {
   choice(name: 'Setup', choices: ['DEV', 'TEST', 'PROD'])
   booleanParam(name: 'RunTest', defaultValue: true, description: 'Should run the test?')
+  string(name: "author", defaultValue: 'GitHub Admin', description: 'Author of the code changes')
  }
  
   stages {
@@ -26,6 +27,7 @@ pipeline {
      }
       steps {
         echo "Building the application"
+       echo "Author = ${params.author}"
       }
     }
     stage ("Test") {
@@ -38,7 +40,7 @@ pipeline {
     }
     stage ("Deploy") {
       steps {
-       echo "Setup: ${env.Setup}"
+       echo "Setup: ${params.Setup}"
        echo "Deploying the application"
        echo "BUILD_ID = ${env.BUILD_ID}"
        echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
