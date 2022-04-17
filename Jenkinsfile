@@ -2,16 +2,16 @@ pipeline {
  
   agent any
   
- environment {
-  FLAG == true
+  environment {
+    FLAG == true
  }
  
   stages {
     stage ("Build") {
         when {
-      expression {
-       echo "Flag value is: ${FLAG}"
-       ${FLAG} == true && CODE_CHANGES == true
+          expression {
+            echo "Flag value is: ${FLAG}"
+            ${FLAG} == true && CODE_CHANGES == true
       }
      }
       steps {
@@ -41,9 +41,10 @@ pipeline {
   }
   success {
    echo "This step is executed only on Success"
- }
+  }
   failure {
    echo "This step is executed only on Failure"
- }
+  }
  
+  }
 }
