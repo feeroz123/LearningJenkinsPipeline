@@ -6,11 +6,14 @@ pipeline {
    MY_VARIABLE = "TEST"
  }
  
+ paramters {
+  choice(name: 'Setup', choices: ['DEV', 'TEST', 'PROD'])
+  booleanParam(name: 'RunTest', defaultValue: true, description: 'Should run the test?')
+ }
+ 
   stages {
    stage ("Print variables") {
     steps {
-     echo "BUILD_ID = ${env.BUILD_ID}"
-     echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
      echo "MY_VARIABLE = ${env.MY_VARIABLE}"
     }
    }
@@ -26,13 +29,19 @@ pipeline {
       }
     }
     stage ("Test") {
+     when {
+      params.RunTest == true
+     }
       steps {
         echo "Testing the application"
       }
     }
     stage ("Deploy") {
       steps {
-        echo "Deploying the application"
+       echo "Setup: ${env.Setup}"
+       echo "Deploying the application"
+       echo "BUILD_ID = ${env.BUILD_ID}"
+       echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
       }
     }
   }
