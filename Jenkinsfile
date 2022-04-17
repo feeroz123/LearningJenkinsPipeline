@@ -32,7 +32,9 @@ pipeline {
     }
     stage ("Test") {
      when {
-      params.RunTest == true
+      expression {
+       params.RunTest == true
+      }
      }
       steps {
         echo "Testing the application"
