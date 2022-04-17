@@ -1,13 +1,17 @@
 def buildApp() {
-  echo "This is the building method from the groovy file" 
+  echo "Building the application"
+  echo "Author = ${params.author}"
 }
 
 def testApp() {
-  echo "This is the testing method from the groovy file" 
+  echo "Testing the application: Groovy script"
 }
 
 def deployApp() {
-  echo "This is the deployment method from the groovy file" 
+  echo "Setup: ${params.Setup}"
+  echo "Deploying the application"
+  echo "BUILD_ID = ${env.BUILD_ID}"
+  echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
 }
 
 return this
