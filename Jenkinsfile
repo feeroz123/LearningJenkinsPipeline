@@ -6,7 +6,7 @@ pipeline {
     stage ("Build") {
         when {
           expression {
-            CODE_CHANGES == true
+            env.CODE_CHANGES == true
       }
      }
       steps {
