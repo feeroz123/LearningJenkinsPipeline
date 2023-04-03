@@ -1,0 +1,54 @@
+node {
+    def gv
+    
+    stage ("Print variables") {
+        sh "echo MY_VARIABLE = ${env.MY_VARIABLE}"
+    }
+    
+    stage ("Initialize") {
+        gv = load "script.groovy"
+    }
+    
+    stage ("Build") {
+        if (env.MY_VARIABLE == "TEST") {
+            gv.buildApp()
+        }
+    }
+    
+    stage ("Test") {
+        if (params.RunTest) {
+            gv.testApp()
+        }
+    }
+    
+    stage ("Deploy") {
+        gv.deployApp() 
+    }
+    
+    post {
+        always {
+            echo "This step is Always executed"
+        }
+        success {
+            echo "This step is executed only on Success"
+        }
+        failure {
+            echo "This step is executed only on Failure"
+        }
+    }
+    
+    // Define Pipeline parameters
+    properties([
+        parameters([
+            choice(name: 'Setup', choices: ['DEV', 'TEST', 'PROD']),
+            booleanParam(name: 'RunTest', defaultValue: true, description: 'Should run the test?'),
+            string(name: "author", defaultValue: 'GitHub Admin', description: 'Author of the code changes')
+        ]),
+        
+        // Define environment variables
+        envVars([
+            // Define environment variables
+            envVar(name: "MY_VARIABLE", value: "TEST")
+        ])
+    ])
+}
